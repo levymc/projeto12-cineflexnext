@@ -1,20 +1,23 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import styled from 'styled-components';
 import Link from 'next/link';
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
-  const teste = 'oi';
-
+export default function HomePage(props) {
+  const teste = "hellow"
   return (
-    <>
-      {/* Restante do código... */}
-      <Link href={`/HomePage/${encodeURIComponent(teste)}`}>
-        <a>Ir para HomePage</a>
-      </Link>
-    </>
-  );
+      <PageContainer>
+        <Link href={`/HomePage/${encodeURIComponent(teste)}`}><button>Home</button></Link>
+      </PageContainer>
+  )
 }
+const PageContainer = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto';
+    font-size: 24px;
+    text-align: center;
+    color: #293845;
+    margin-top: 30px;
+    padding-top: 70px;
+`
