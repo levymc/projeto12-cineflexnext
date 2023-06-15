@@ -2,8 +2,6 @@ import Link from 'next/link';
 import styled from "styled-components"
 import axios from 'axios';
 import React, { useState } from "react";
-import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
-// import BtnHome from "./components/BtnHome";
 import NavContainer from '../components/NavContainer';
 import ResetStyle from '../style/ResetStyle';
 import GlobalStyle from '../style/GlobalStyle';
