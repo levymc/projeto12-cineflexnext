@@ -42,20 +42,14 @@ export default function HomePage(props) {
                 <ListContainer>
                     {allMovies.map((movie, i) => 
                         <MovieContainer key={movie.id} data-test="movie">
-                            <img 
-                                id={movie.id} 
-                                key={movie.id} 
-                                src={movie.posterURL} 
-                                alt={movie.title} 
-                                onClick={() => {
-                                    console.log(movie.id)
-                                    navigateTo(`/sessoes/${movie.id}`, {
-                                        state: {
-                                            movieId: movie.id
-                                        }
-                                    });
-                                }}
-                            />
+                            <Link href={`/sessoes/${movie.id}`} passHref>
+                                <img
+                                id={movie.id}
+                                key={movie.id}
+                                src={movie.posterURL}
+                                alt={movie.title}
+                                />
+                            </Link>
                         </MovieContainer>
                     )}
                 </ListContainer>
