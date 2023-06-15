@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
-	body{
-		background:black;
+	html{
+		font-family: 'Roboto', sans-serif;
 	}
 	button {
 		height: 43px;
