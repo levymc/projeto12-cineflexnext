@@ -17,14 +17,15 @@ export default function BtnHome() {
 }
 
 const SecBtn = styled.section`
-  position: absolute;
+  position: fixed;
   height: auto;
   top: 1rem;
-  left: 1.5rem;
+  left: 2rem;
   z-index: 999;
 
   #arrowIcon {
     cursor: pointer;
     color: black;
+    font-size: 40px;
   }
 `;
