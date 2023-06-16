@@ -7,6 +7,8 @@ import BtnHome from "../../components/BtnHome";
 import NavContainer from "../../components/NavContainer";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Link from "next/link";
+
 
 export default function SessionsPage() {
     const customId = "custom-id";
@@ -77,7 +79,9 @@ export default function SessionsPage() {
                         {day.weekday} - {day.date}
                         <ButtonsContainer key={day.id} data-test="movie-day">
                             {day.showtimes.map((time, i) =>
-                                <button className="waves-effect waves-light orange btn-small" data-test="showtime" onClick={() => navigateTo(`/assentos/${day.id}`, { state: { sessionId: time.id, movieId: movieId, time: time, day: day.weekday } })} key={time.id}>{time.name}</button>
+                                <Link href={`/assentos/${day.id}`} as={`/assentos/${day.id}`} passHref>
+                                    <button className="waves-effect waves-light orange btn-small" data-test="showtime" key={time.id}>{time.name}</button>
+                                </Link>
                             )}
                         </ButtonsContainer>
                     </SessionContainer>
@@ -113,6 +117,7 @@ const SessionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     font-family: 'Roboto';
     font-size: 20px;
     color: #293845;
