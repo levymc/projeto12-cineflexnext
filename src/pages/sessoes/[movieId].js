@@ -23,12 +23,15 @@ export default function SessionsPage() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-    });
+        theme: "dark",
+        });
 
     useEffect(() => {
         const getSMovie = async () => {
             try {
+                // Simulando um atraso de 2 segundos na requisição
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+        
                 const response = await axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`);
                 setMovie(response.data);
             } catch (error) {
@@ -38,6 +41,7 @@ export default function SessionsPage() {
                 setLoading(false);
             }
         };
+        
 
         getSMovie();
     }, []);
@@ -56,7 +60,7 @@ export default function SessionsPage() {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
-                    theme="light"
+                    theme="dark"
                 />
             </PageContainer>
         );
