@@ -3,7 +3,8 @@ import axios from 'axios';
 import React, { useState } from "react";
 import 'materialize-css/dist/css/materialize.min.css';
 import { useRouter } from "next/router";
-
+import BtnHome from "../../components/BtnHome";
+import NavContainer from "../../components/NavContainer";
 
 export default function SessionsPage() {
     // const navigateTo = useNavigate();
@@ -36,6 +37,8 @@ export default function SessionsPage() {
 
     return (
         <PageContainer>
+            <NavContainer />
+            <BtnHome />
             Selecione o horário
             {movie.days && movie.days.map((day, i) =>
                 <SessionContainer key={day.id}>
@@ -71,9 +74,6 @@ const PageContainer = styled.div`
     margin-top: 30px;
     padding-bottom: 120px;
     padding-top: 70px;
-    div {
-        margin-top: 20px;
-    }
 `
 const SessionContainer = styled.div`
     display: flex;
