@@ -8,8 +8,9 @@ import GlobalStyle from '../style/GlobalStyle';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function HomePage(props) {
-    const notify = () => toast('🦄 Wow so easy!', {
+export default function HomePage() {
+    const customId = "custom-id";
+    const notify = () => toast('🦄 Carregando...', {
                                 position: "top-center",
                                 autoClose: 5000,
                                 hideProgressBar: false,
@@ -17,7 +18,8 @@ export default function HomePage(props) {
                                 pauseOnHover: true,
                                 draggable: true,
                                 progress: undefined,
-                                theme: "light",
+                                theme: "dark",
+                                toastId: customId,
                             });
 
     axios.defaults.headers.common['Authorization'] = 'JrVC988hm5rkhTQCtGv4DBlq';
@@ -28,6 +30,8 @@ export default function HomePage(props) {
     useEffect(() => {
         const getMovies = async () => {
           try {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
             const response = await axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies');
             setAllMovies(response.data);
           } catch (error) {
@@ -55,7 +59,7 @@ export default function HomePage(props) {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
-                    theme="light"
+                    theme="dark"
                 />
             </PageContainer>
         );

@@ -9,13 +9,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function SessionsPage() {
+    const customId = "custom-id";
     const router = useRouter();
     const { movieId } = router.query;
 
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const notify = () => toast('🦄 Wow so easy!', {
+    const notify = () => toast('🦄 Carregando...', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -24,7 +25,8 @@ export default function SessionsPage() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+        toastId: customId,
+    });
 
     useEffect(() => {
         const getSMovie = async () => {
