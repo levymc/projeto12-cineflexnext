@@ -7,6 +7,8 @@ import ResetStyle from '../style/ResetStyle';
 import GlobalStyle from '../style/GlobalStyle';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SeatContext } from './assentos/SeatContext';
+import { useContext } from 'react';
 
 export default function HomePage() {
     const customId = "custom-id";
@@ -26,6 +28,7 @@ export default function HomePage() {
 
     const [allMovies, setAllMovies] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { allSeats } = useContext(SeatContext);
 
     useEffect(() => {
         const getMovies = async () => {

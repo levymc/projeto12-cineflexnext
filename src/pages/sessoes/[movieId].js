@@ -8,12 +8,16 @@ import NavContainer from "../../components/NavContainer";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "next/link";
-
+import { useContext } from 'react';
+import { SeatContext } from "../assentos/SeatContext";
 
 export default function SessionsPage() {
     const customId = "custom-id";
     const router = useRouter();
     const { movieId } = router.query;
+
+    const { setMovieId } = useContext(SeatContext);
+    setMovieId(movieId)
 
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -79,7 +83,7 @@ export default function SessionsPage() {
                         {day.weekday} - {day.date}
                         <ButtonsContainer key={day.id} data-test="movie-day">
                             {day.showtimes.map((time, i) =>
-                                <Link href={`/assentos/${day.id}`} as={`/assentos/${day.id}`} passHref>
+                                <Link href={{ pathname: `/assentos/${day.id}`, query: { sessionId: time.id, movieId: movieId, time: time, day: day.weekday } }} passHref>
                                     <button className="waves-effect waves-light orange btn-small" data-test="showtime" key={time.id}>{time.name}</button>
                                 </Link>
                             )}
