@@ -67,7 +67,6 @@ const PageContainer = styled.div`
     color: #293845;
     margin-top: 30px;
     padding-top: 70px;
-    font-family: 'Roboto', sans-serif;
 `
 const ListContainer = styled.div`
     width: 360px;
