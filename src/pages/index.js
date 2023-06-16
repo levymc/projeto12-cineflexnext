@@ -1,22 +1,31 @@
 import Link from 'next/link';
 import styled from "styled-components"
 import axios from 'axios';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavContainer from '../components/NavContainer';
 import ResetStyle from '../style/ResetStyle';
 import GlobalStyle from '../style/GlobalStyle';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function HomePage(props) {
-  const teste = "hellow"
+    const notify = () => toast('🦄 Wow so easy!', {
+                                position: "top-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            });
 
-  axios.defaults.headers.common['Authorization'] = 'JrVC988hm5rkhTQCtGv4DBlq';
+    axios.defaults.headers.common['Authorization'] = 'JrVC988hm5rkhTQCtGv4DBlq';
 
     const [allMovies, setAllMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const [allSeats, setAllSeats] = useState([])
-
-    React.useEffect(() => {
+    useEffect(() => {
         const getMovies = async () => {
           try {
             const response = await axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies');
@@ -24,14 +33,33 @@ export default function HomePage(props) {
           } catch (error) {
             console.error('Erro ao buscar os filmes:', error);
             setAllMovies([]);
+          } finally {
+            setLoading(false);
           }
         };
         
         getMovies();
     }, []);
-    if(allMovies.length === 0){
-        return <div>....Carregando</div>
-    }else{ {/* <Link href={`/HomePage/${encodeURIComponent(teste)}`}></Link> */}
+
+    if (loading) {
+        notify()
+        return (
+            <PageContainer>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+            </PageContainer>
+        );
+    } else {
         return (
             <PageContainer>
                 <NavContainer />
@@ -53,9 +81,10 @@ export default function HomePage(props) {
                 </ListContainer>
     
             </PageContainer>
-        )
+        );
     }
 }
+
 const PageContainer = styled.div`
     position: relative;
     display: flex;
