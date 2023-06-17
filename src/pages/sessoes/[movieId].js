@@ -1,66 +1,108 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import axios from 'axios';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'materialize-css/dist/css/materialize.min.css';
 import { useRouter } from "next/router";
+import BtnHome from "../../components/BtnHome";
 import NavContainer from "../../components/NavContainer";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Link from "next/link";
+import { useContext } from 'react';
+import { SeatContext } from "../assentos/SeatContext";
 
 export default function SessionsPage() {
-    // const navigateTo = useNavigate();
-
-    // const {state} = useLocation();
-    // const {movieId} = state;
-
+    const customId = "custom-id";
     const router = useRouter();
     const { movieId } = router.query;
 
-    const [movie, setMovie] = useState([])
+    const { setMovieId } = useContext(SeatContext);
+    setMovieId(movieId)
 
-    console.log(movieId)
+    const [movie, setMovie] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    React.useEffect(() => {
+    const notify = () => toast('🦄 Carregando...', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        toastId: customId,
+    });
+
+    useEffect(() => {
         const getSMovie = async () => {
             try {
-            const response = await axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`);
-            setMovie(response.data);
+                // Simulando um atraso de 2 segundos na requisição
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+        
+                const response = await axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`);
+                setMovie(response.data);
             } catch (error) {
-            console.error('Erro ao buscar os filmes:', error);
-            setMovie([]);
+                console.error('Erro ao buscar os filmes:', error);
+                setMovie([]);
+            } finally {
+                setLoading(false);
             }
         };
-    
+        
+
         getSMovie();
     }, []);
 
-    console.log(movie)
+    if (loading) {
+        notify()
+        return (
+            <PageContainer>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+            </PageContainer>
+        );
+    } else {
+        return (
+            <PageContainer>
+                <NavContainer />
+                <BtnHome />
+                Selecione o horário
+                {movie.days && movie.days.map((day, i) =>
+                    <SessionContainer key={day.id}>
+                        {day.weekday} - {day.date}
+                        <ButtonsContainer key={day.id} data-test="movie-day">
+                            {day.showtimes.map((time, i) =>
+                                <Link href={{ pathname: `/assentos/${day.id}`, query: { sessionId: time.id, movieId: movieId, time: time, day: day.weekday } }} passHref>
+                                    <button className="waves-effect waves-light orange btn-small" data-test="showtime" key={time.id}>{time.name}</button>
+                                </Link>
+                            )}
+                        </ButtonsContainer>
+                    </SessionContainer>
+                )}
 
-    return (
-        <PageContainer>
-            <NavContainer />
-            Selecione o horário
-            {movie.days && movie.days.map((day, i) =>
-                <SessionContainer key={day.id}>
-                    {day.weekday} - {day.date}
-                    <ButtonsContainer key={day.id} data-test="movie-day">
-                        {day.showtimes.map((time, i) => 
-                            <button className="waves-effect waves-light orange btn-small" data-test="showtime" onClick={() => navigateTo(`/assentos/${day.id}` ,{state: {sessionId: time.id, movieId: movieId, time: time, day: day.weekday}})} key={time.id}>{time.name}</button>
-                        )}
-                    </ButtonsContainer>
-                </SessionContainer>
-            )}
+                <FooterContainer data-test="footer">
+                    <div>
+                        <img src={movie.posterURL} onClick={() => console.log(idFilme)} alt="poster" />
+                    </div>
+                    <div>
+                        <p>{movie.title}</p>
+                    </div>
+                </FooterContainer>
 
-            <FooterContainer data-test="footer">
-                <div>
-                    <img src={movie.posterURL} onClick={() => console.log(idFilme)} alt="poster" />
-                </div>
-                <div>
-                    <p>{movie.title}</p>
-                </div>
-            </FooterContainer>
-
-        </PageContainer>
-    )
+            </PageContainer>
+        );
+    }
 }
 
 const PageContainer = styled.div`
@@ -82,23 +124,28 @@ const SessionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     font-family: 'Roboto';
     font-size: 20px;
     color: #293845;
     padding: 0 20px;
-`
+`;
+
 const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin: 20px 0;
+
     button {
         margin-right: 20px;
         z-index: 0 !important;
     }
+
     a {
         text-decoration: none;
     }
-`
+`;
+
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
@@ -118,6 +165,7 @@ const FooterContainer = styled.div`
         justify-content: center;
         background-color: white;
         margin: 12px;
+
         img {
             width: 50px;
             height: 70px;
@@ -129,11 +177,13 @@ const FooterContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+
         p {
             text-align: left;
+
             &:nth-child(2) {
                 margin-top: 10px;
             }
         }
     }
-`
+`;

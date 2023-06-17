@@ -1,37 +1,72 @@
 import Link from 'next/link';
 import styled from "styled-components"
 import axios from 'axios';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavContainer from '../components/NavContainer';
 import ResetStyle from '../style/ResetStyle';
 import GlobalStyle from '../style/GlobalStyle';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { SeatContext } from './assentos/SeatContext';
+import { useContext } from 'react';
 
+export default function HomePage() {
+    const customId = "custom-id";
+    const notify = () => toast('🦄 Carregando...', {
+                                position: "top-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark",
+                                toastId: customId,
+                            });
 
-export default function HomePage(props) {
-  const teste = "hellow"
-
-  axios.defaults.headers.common['Authorization'] = 'JrVC988hm5rkhTQCtGv4DBlq';
+    axios.defaults.headers.common['Authorization'] = 'JrVC988hm5rkhTQCtGv4DBlq';
 
     const [allMovies, setAllMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { allSeats } = useContext(SeatContext);
 
-    const [allSeats, setAllSeats] = useState([])
-
-    React.useEffect(() => {
+    useEffect(() => {
         const getMovies = async () => {
           try {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
             const response = await axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies');
             setAllMovies(response.data);
           } catch (error) {
             console.error('Erro ao buscar os filmes:', error);
             setAllMovies([]);
+          } finally {
+            setLoading(false);
           }
         };
         
         getMovies();
     }, []);
-    if(allMovies.length === 0){
-        return <div>....Carregando</div>
-    }else{ {/* <Link href={`/HomePage/${encodeURIComponent(teste)}`}></Link> */}
+
+    if (loading) {
+        notify()
+        return (
+            <PageContainer>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+            </PageContainer>
+        );
+    } else {
         return (
             <PageContainer>
                 <NavContainer />
@@ -53,9 +88,10 @@ export default function HomePage(props) {
                 </ListContainer>
     
             </PageContainer>
-        )
+        );
     }
 }
+
 const PageContainer = styled.div`
     position: relative;
     display: flex;
@@ -67,7 +103,6 @@ const PageContainer = styled.div`
     color: #293845;
     margin-top: 30px;
     padding-top: 70px;
-    font-family: 'Roboto', sans-serif;
 `
 const ListContainer = styled.div`
     width: 360px;
