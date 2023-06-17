@@ -8,6 +8,8 @@ import { SeatContext } from "./SeatContext";
 import NavContainer from "@/components/NavContainer";
 import BtnHome from "@/components/BtnHome";
 
+
+
 export default function SeatsPage(props) {
     const router = useRouter();
     const { sessionId, movieId, time, day } = router.query;
@@ -50,15 +52,15 @@ export default function SeatsPage(props) {
         event.preventDefault();
         
         // Enviar os dados para o servidor
-        navigateTo('/sucesso', {
-        state: {
-            nomeComprador: nomeComprador,
-            cpfComprador: cpfComprador,
-            isSelected: isSelected,
-            allSeats: allSeats,
-            indexSelectedSeat: indexSelectedSeat
-        }
-        })
+        router.push("/sucesso", {
+            state: {
+                nomeComprador: nomeComprador,
+                cpfComprador: cpfComprador,
+                isSelected: isSelected,
+                allSeats: allSeats,
+                indexSelectedSeat: indexSelectedSeat
+            }
+        });
     };
 
     React.useEffect(() => {
