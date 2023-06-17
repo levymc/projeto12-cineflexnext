@@ -1,5 +1,14 @@
-import '@/styles/globals.css'
+import React from 'react';
+import App from 'next/app';
+import "../styles/globals.css";
+import { SeatProvider } from './assentos/SeatContext';
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  return (
+    <SeatProvider>
+      <Component {...pageProps} />
+    </SeatProvider>
+  );
 }
+
+export default MyApp;

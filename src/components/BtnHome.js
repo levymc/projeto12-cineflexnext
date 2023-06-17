@@ -1,22 +1,34 @@
-import { useNavigate } from 'react-router-dom';
-import styled from "styled-components"
-// import '@ionic/react/css/core.css';
-// import { IonIcon } from '@ionic/react';
-// import { arrowBackOutline } from 'ionicons/icons';
+import styled from "styled-components";
+import { BsArrowLeft } from 'react-icons/bs';
+import { useRouter } from 'next/router';
 
-export default function BtnHome(){
-    const navigateTo = useNavigate();
+export default function BtnHome() {
+  const router = useRouter();
 
-    const handleGoBack = () => {
-        navigateTo(-1); // Navega de volta para a página anterior
-    }
+  const handleGoBack = () => {
+    router.back(); // Navega de volta para a página anterior
+  };
 
-    return (
-        <SecBtn>
-            {/* <IonIcon onClick={handleGoBack} data-test="go-home-header-btn" icon={arrowBackOutline} id="arrowIcon"></IonIcon> */}
-        </SecBtn>
-    )
+  return (
+    <SecBtn>
+      <BsArrowLeft onClick={handleGoBack} data-test="go-home-header-btn" id="arrowIcon" />
+    </SecBtn>
+  );
 }
+
+const SecBtn = styled.section`
+  position: fixed;
+  height: auto;
+  top: 1rem;
+  left: 2rem;
+  z-index: 999;
+
+  #arrowIcon {
+    cursor: pointer;
+    color: black;
+    font-size: 40px;
+  }
+`;
 
 const SecBtn = styled.section`
     position: absolute;
