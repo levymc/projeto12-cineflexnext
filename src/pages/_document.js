@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-
+import styled from "styled-components"
 
 export default function Document() {
   return (
@@ -7,9 +7,15 @@ export default function Document() {
       
       <Head />
       <body>
-        <Main />
-        <NextScript />
+        <Font>
+          <Main />
+          <NextScript />
+        </Font>
       </body>
     </Html>
   )
 }
+
+const Font = styled.div`
+  font-family: 'Roboto', sans-serif;
+`
