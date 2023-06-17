@@ -28,15 +28,4 @@ const SecBtn = styled.section`
     color: black;
     font-size: 40px;
   }
-`;
-
-const SecBtn = styled.section`
-    position: absolute;
-    height:auto;
-    top: 0.75rem;
-    left: 1rem;
-    #arrowIcon{
-        cursor: pointer;
-        color: black;
-    }
 `
