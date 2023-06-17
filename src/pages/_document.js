@@ -4,8 +4,9 @@ import styled from "styled-components"
 export default function Document() {
   return (
     <Html lang="pt-Br">
-      
-      <Head />
+      <Head>
+        <title>CineFlex NextJS</title>
+      </Head>
       <body>
         <Font>
           <Main />
