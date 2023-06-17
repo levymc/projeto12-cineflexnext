@@ -36,9 +36,6 @@ export default function SeatsPage(props) {
     }
     const iconsArray = Object.entries(icons);
 
-
-    
-
     const [isSelected, setIsSelected] = useState([])
     const [movie, setMovie] = useState([])
 

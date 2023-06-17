@@ -17,6 +17,7 @@ export default function SessionsPage() {
     const { movieId } = router.query;
 
     const { setMovieId } = useContext(SeatContext);
+    console.log(movieId)
     setMovieId(movieId)
 
     const [movie, setMovie] = useState([]);

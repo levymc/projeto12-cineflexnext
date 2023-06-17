@@ -10,22 +10,24 @@ export const SeatProvider = ({ children }) => {
     const [movieId, setMovieId] = useState('');
 
     React.useEffect(() => {
-        const getSeats = async () => {
-        try {
-            const response = await axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${movieId}/seats`);
-            setAllSeats(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar os assentos:', error);
-            setAllSeats([]);
+        if (movieId !== "") {
+            const getSeats = async () => {
+                try {
+                    const response = await axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${movieId}/seats`);
+                    setAllSeats(response.data);
+                } catch (error) {
+                    console.error('Erro ao buscar os assentos:', error);
+                    setAllSeats([]);
+                }
+            };
+            console.log(allSeats)
+            getSeats();
         }
-        };
-        getSeats();
-    }, []);
-    console.log(allSeats)
+    }, [movieId]);
 
     return (
         <SeatContext.Provider value={{ allSeats, setAllSeats, movieId, setMovieId }}>
-        {children}
+            {children}
         </SeatContext.Provider>
     );
 };
