@@ -5,6 +5,8 @@ import 'materialize-css/dist/css/materialize.min.css';
 import { useRouter } from "next/router";
 import { useContext } from 'react';
 import { SeatContext } from "./SeatContext";
+import NavContainer from "@/components/NavContainer";
+import BtnHome from "@/components/BtnHome";
 
 export default function SeatsPage(props) {
     const router = useRouter();
@@ -103,6 +105,8 @@ export default function SeatsPage(props) {
       
     return (
         <PageContainer>
+            <NavContainer />
+            <BtnHome/>
             Selecione o(s) assento(s)
             <SeatsContainer>
                 {allSeats.seats && allSeats.seats.map((seat, i) => 
@@ -166,7 +170,7 @@ export default function SeatsPage(props) {
                 </div>
                 <div>
                     <p>{movie.title}</p>
-                    {/* <p>{day} - {time.name}</p> */}
+                    <p>{day} - {time}</p>
                 </div>
             </FooterContainer>
 
