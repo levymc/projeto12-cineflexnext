@@ -5,6 +5,9 @@ import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
 import { useRouter } from "next/router";
 import Link from "next/link";
+import NavContainer from "@/components/NavContainer";
+import BtnHome from "@/components/BtnHome";
+import Head from "next/head";
 
 export default function SuccessPage() {
     // const router = useRouter();
@@ -26,6 +29,11 @@ export default function SuccessPage() {
     
     return (
         <PageContainer>
+            <Head>
+                <title>CineFlex NextJS</title>
+            </Head>
+            <NavContainer />
+            <BtnHome />
             <h1>Pedido feito <br /> com sucesso!</h1>
 
             {/* <TextContainer  data-test="movie-info">
@@ -45,7 +53,9 @@ export default function SuccessPage() {
                 <p>CPF: {cpfComprador}</p>
             </TextContainer> */}
 
-            <button data-test="go-home-btn" className="waves-effect waves-light orange btn-small">Voltar para Home</button>
+            <Link href="/" data-test="go-home-btn" className="waves-effect waves-light orange btn-small">
+                Voltar para Home
+            </Link>
         </PageContainer>
     )
 }
