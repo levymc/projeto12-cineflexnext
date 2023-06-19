@@ -7,28 +7,28 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function SuccessPage() {
-    const router = useRouter();
-    const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = router.query;
-    let ids = []
+    // const router = useRouter();
+    // const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = router.query;
+    // let ids = []
 
-    indexSelectedSeat.forEach(element => {
-        console.log(allSeats.seats[element].id)
-        ids.push(allSeats.seats[element].id)
-        console.log(ids)
-    });
-    React.useEffect(()=>{
-        axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', {ids: ids, name: nomeComprador, cpf: cpfComprador.replace(/[.-]/g, "")}).then(response =>{
-            console.log(response)
-        }).catch(e => {
-            console.log(e)
-        })
-    }, [])
+    // indexSelectedSeat.forEach(element => {
+    //     console.log(allSeats.seats[element].id)
+    //     ids.push(allSeats.seats[element].id)
+    //     console.log(ids)
+    // });
+    // React.useEffect(()=>{
+    //     axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', {ids: ids, name: nomeComprador, cpf: cpfComprador.replace(/[.-]/g, "")}).then(response =>{
+    //         console.log(response)
+    //     }).catch(e => {
+    //         console.log(e)
+    //     })
+    // }, [])
     
     return (
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
-            <TextContainer  data-test="movie-info">
+            {/* <TextContainer  data-test="movie-info">
                 <strong><p>Filme e Sessão</p></strong>
                 <p>{allSeats.movie.title}</p>
                 <p>{allSeats.day.weekday} {allSeats.day.date} - {allSeats.name}</p>
@@ -43,9 +43,9 @@ export default function SuccessPage() {
                 <strong><p>Comprador</p></strong>
                 <p>Nome: {nomeComprador}</p>
                 <p>CPF: {cpfComprador}</p>
-            </TextContainer>
+            </TextContainer> */}
 
-            <button data-test="go-home-btn" className="waves-effect waves-light orange btn-small" onClick={() => navigateTo("/")}>Voltar para Home</button>
+            <button data-test="go-home-btn" className="waves-effect waves-light orange btn-small">Voltar para Home</button>
         </PageContainer>
     )
 }
