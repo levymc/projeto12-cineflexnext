@@ -19,6 +19,7 @@ export default function SeatsPage(props) {
     const { allSeats } = useContext(SeatContext);
     const { setAllSeats } = useContext(SeatContext);
     
+    console.log(allSeats)
 
     const icons = {
         selecionado: {
@@ -50,9 +51,11 @@ export default function SeatsPage(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         
+        console.log(allSeats)
+        
         // Enviar os dados para o servidor
         router.push("/sucesso", {
-            state: {
+            query: {
                 nomeComprador: nomeComprador,
                 cpfComprador: cpfComprador,
                 isSelected: isSelected,

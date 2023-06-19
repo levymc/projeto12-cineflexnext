@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
@@ -11,22 +10,30 @@ import Head from "next/head";
 
 export default function SuccessPage() {
     const router = useRouter();
-    const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = router.query;
-    console.log(nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat)
-    // let ids = []
+    const { nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat } = router.query;
+    console.log(allSeats)
+    let ids = []
 
-    // indexSelectedSeat.forEach(element => {
-    //     console.log(allSeats.seats[element].id)
-    //     ids.push(allSeats.seats[element].id)
-    //     console.log(ids)
-    // });
-    // React.useEffect(()=>{
-    //     axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', {ids: ids, name: nomeComprador, cpf: cpfComprador.replace(/[.-]/g, "")}).then(response =>{
-    //         console.log(response)
-    //     }).catch(e => {
-    //         console.log(e)
-    //     })
-    // }, [])
+    if (Array.isArray(indexSelectedSeat)) {
+        indexSelectedSeat.forEach((element) => {
+            console.log(allSeats.seats[element].id);
+            ids.push(allSeats.seats[element].id);
+            console.log(ids);
+        });
+    } else if (Number.isInteger(indexSelectedSeat)) {
+        console.log(allSeats.seats[indexSelectedSeat].id);
+        ids.push(allSeats.seats[indexSelectedSeat].id);
+        console.log(ids);
+    } else {
+        console.log("O valor de indexSelectedSeat não é um número inteiro ou um array.");
+    }
+    React.useEffect(()=>{
+        axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', {ids: ids, name: nomeComprador, cpf: cpfComprador.replace(/[.-]/g, "")}).then(response =>{
+            console.log(response)
+        }).catch(e => {
+            console.log(e)
+        })
+    }, [])
     
     return (
         <PageContainer>
