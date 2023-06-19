@@ -85,7 +85,7 @@ export default function SessionsPage() {
                         {day.weekday} - {day.date}
                         <ButtonsContainer key={day.id} data-test="movie-day">
                             {day.showtimes.map((time, i) =>
-                                <Link href={{ pathname: `/assentos/${day.id}`, query: { sessionId: time.id, movieId: movieId, time: time.name, day: day.weekday } }} passHref>
+                                <Link key={i} href={{ pathname: `/assentos/${day.id}`, query: { sessionId: time.id, movieId: movieId, time: time.name, day: day.weekday } }} passHref>
                                     <button className="waves-effect waves-light orange btn-small" data-test="showtime" key={time.id}>{time.name}</button>
                                 </Link>
                             )}

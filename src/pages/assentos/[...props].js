@@ -7,14 +7,13 @@ import { useContext } from 'react';
 import { SeatContext } from "./SeatContext";
 import NavContainer from "@/components/NavContainer";
 import BtnHome from "@/components/BtnHome";
+import Link from "next/link";
 
 
 
 export default function SeatsPage(props) {
     const router = useRouter();
     const { sessionId, movieId, time, day } = router.query;
-
-    console.log("AQUIIIIIIIIIIIIIIIIIIIII",movieId)
 
     const [isLoading, setIsLoading] = useState(true);
     const { allSeats } = useContext(SeatContext);
@@ -163,7 +162,22 @@ export default function SeatsPage(props) {
                     />
                 </label>
 
-                <button className="waves-effect waves-light orange btn-small" type="submit" data-test="book-seat-btn">Reservar Assento(s)</button>
+                <Link 
+                    className="waves-effect waves-light orange btn-small" 
+                    data-test="book-seat-btn"
+                    href={{
+                        pathname: '/sucesso',
+                        // query: {
+                        // nomeComprador: nomeComprador,
+                        // cpfComprador: cpfComprador,
+                        // isSelected: isSelected,
+                        // allSeats: allSeats,
+                        // indexSelectedSeat: indexSelectedSeat
+                        // }
+                    }}
+                >
+                    Reservar Assento(s)
+                </Link>
             </FormContainer>
 
             <FooterContainer data-test="footer">

@@ -3,15 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import axios from "axios";
 import 'materialize-css/dist/css/materialize.min.css';
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function SuccessPage() {
-    const navigateTo = useNavigate();
-
-    const {state} = useLocation();
-    const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = state
+    const router = useRouter();
+    const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = router.query;
     let ids = []
-    console.log(allSeats.seats[indexSelectedSeat], indexSelectedSeat)
-    console.log(allSeats)
+
     indexSelectedSeat.forEach(element => {
         console.log(allSeats.seats[element].id)
         ids.push(allSeats.seats[element].id)

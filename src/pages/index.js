@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SeatContext } from './assentos/SeatContext';
 import { useContext } from 'react';
+import Head from 'next/head';
 
 export default function HomePage() {
     const customId = "custom-id";
@@ -33,7 +34,7 @@ export default function HomePage() {
     useEffect(() => {
         const getMovies = async () => {
           try {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            // await new Promise((resolve) => setTimeout(resolve, 2000));
 
             const response = await axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies');
             setAllMovies(response.data);
@@ -52,6 +53,9 @@ export default function HomePage() {
         notify()
         return (
             <PageContainer>
+                <Head>
+                    <title>CineFlex NextJS</title>
+                </Head>
                 <ToastContainer
                     position="top-center"
                     autoClose={5000}
