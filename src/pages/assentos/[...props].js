@@ -167,13 +167,13 @@ export default function SeatsPage(props) {
                     data-test="book-seat-btn"
                     href={{
                         pathname: '/sucesso',
-                        // query: {
-                        // nomeComprador: nomeComprador,
-                        // cpfComprador: cpfComprador,
-                        // isSelected: isSelected,
-                        // allSeats: allSeats,
-                        // indexSelectedSeat: indexSelectedSeat
-                        // }
+                        query: {
+                        nomeComprador: nomeComprador,
+                        cpfComprador: cpfComprador,
+                        isSelected: isSelected,
+                        allSeats: allSeats,
+                        indexSelectedSeat: indexSelectedSeat
+                        }
                     }}
                 >
                     Reservar Assento(s)

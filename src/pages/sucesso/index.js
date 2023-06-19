@@ -10,8 +10,9 @@ import BtnHome from "@/components/BtnHome";
 import Head from "next/head";
 
 export default function SuccessPage() {
-    // const router = useRouter();
-    // const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = router.query;
+    const router = useRouter();
+    const {nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat} = router.query;
+    console.log(nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat)
     // let ids = []
 
     // indexSelectedSeat.forEach(element => {

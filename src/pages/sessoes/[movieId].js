@@ -39,7 +39,7 @@ export default function SessionsPage() {
         const getSMovie = async () => {
             try {
                 // Simulando um atraso de 2 segundos na requisição
-                await new Promise((resolve) => setTimeout(resolve, 2000));
+                // await new Promise((resolve) => setTi meout(resolve, 2000));
         
                 const response = await axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`);
                 setMovie(response.data);
