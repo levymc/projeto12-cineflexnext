@@ -18,9 +18,8 @@ export default function SeatsPage(props) {
     const [isLoading, setIsLoading] = useState(true);
     const { allSeats } = useContext(SeatContext);
     const { setAllSeats } = useContext(SeatContext);
+    const { indexSelectedSeat, setIndexSelectedSeat } = useContext(SeatContext);
     
-    console.log(allSeats)
-
     const icons = {
         selecionado: {
             border: "1px solid #0E7D71",
@@ -59,7 +58,6 @@ export default function SeatsPage(props) {
                 nomeComprador: nomeComprador,
                 cpfComprador: cpfComprador,
                 isSelected: isSelected,
-                allSeats: allSeats,
                 indexSelectedSeat: indexSelectedSeat
             }
         });
@@ -87,9 +85,8 @@ export default function SeatsPage(props) {
             );
     }; 
 
-    const [indexSelectedSeat, setIndexSelectedSeat] = useState([]);
 
-    const changeSelect = (index, newValue, seat) => {
+    const changeSelect = async (index, newValue, seat) => {
         if (seat.isAvailable) {
           const newArray = [...isSelected];
           newArray[index] = newArray[index] === "selecionado" ? "vazio" : newValue;
@@ -101,7 +98,7 @@ export default function SeatsPage(props) {
             }
             return indices;
           }, []);
-          setIndexSelectedSeat(updatedIndexSelectedSeat);
+          await setIndexSelectedSeat(updatedIndexSelectedSeat);
         } else {
           alert("Assento indisponível!");
         }
@@ -174,8 +171,6 @@ export default function SeatsPage(props) {
                         nomeComprador: nomeComprador,
                         cpfComprador: cpfComprador,
                         isSelected: isSelected,
-                        allSeats: allSeats,
-                        indexSelectedSeat: indexSelectedSeat
                         }
                     }}
                 >

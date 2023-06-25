@@ -6,12 +6,18 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import NavContainer from "@/components/NavContainer";
 import BtnHome from "@/components/BtnHome";
+import { useContext } from 'react';
 import Head from "next/head";
+import { SeatContext } from "../assentos/SeatContext";
 
 export default function SuccessPage() {
     const router = useRouter();
-    const { nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat } = router.query;
-    console.log(allSeats)
+    const { nomeComprador, cpfComprador, isSelected } = router.query;
+    const { allSeats } = useContext(SeatContext);
+    const { indexSelectedSeat, setIndexSelectedSeat } = useContext(SeatContext);
+
+    // console.log("Aqui",nomeComprador, cpfComprador, isSelected, allSeats, indexSelectedSeat )
+
     let ids = []
 
     if (Array.isArray(indexSelectedSeat)) {
@@ -44,7 +50,7 @@ export default function SuccessPage() {
             <BtnHome />
             <h1>Pedido feito <br /> com sucesso!</h1>
 
-            {/* <TextContainer  data-test="movie-info">
+            <TextContainer  data-test="movie-info">
                 <strong><p>Filme e Sessão</p></strong>
                 <p>{allSeats.movie.title}</p>
                 <p>{allSeats.day.weekday} {allSeats.day.date} - {allSeats.name}</p>
@@ -59,7 +65,7 @@ export default function SuccessPage() {
                 <strong><p>Comprador</p></strong>
                 <p>Nome: {nomeComprador}</p>
                 <p>CPF: {cpfComprador}</p>
-            </TextContainer> */}
+            </TextContainer>
 
             <Link href="/" data-test="go-home-btn" className="waves-effect waves-light orange btn-small">
                 Voltar para Home

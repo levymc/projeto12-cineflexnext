@@ -8,6 +8,7 @@ export const SeatContext = createContext();
 export const SeatProvider = ({ children }) => {
     const [allSeats, setAllSeats] = useState([]);
     const [movieId, setMovieId] = useState('');
+    const [indexSelectedSeat, setIndexSelectedSeat] = useState([]);
 
     React.useEffect(() => {
         if (movieId !== "") {
@@ -26,7 +27,7 @@ export const SeatProvider = ({ children }) => {
     }, [movieId]);
 
     return (
-        <SeatContext.Provider value={{ allSeats, setAllSeats, movieId, setMovieId }}>
+        <SeatContext.Provider value={{ allSeats, setAllSeats, movieId, setMovieId, indexSelectedSeat, setIndexSelectedSeat}}>
             {children}
         </SeatContext.Provider>
     );
